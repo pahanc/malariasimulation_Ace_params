@@ -238,7 +238,22 @@
 #'
 #' @export
 get_parameters <- function(overrides = list()) {
+  
+  mosq_suppression<-unlist(read.csv("/Imperial March 2021/malariasimulation/mosq_suppression.csv",header=F,colClasses="numeric"))
+  dimnames(mosq_suppression)<-NULL
+  mosq_suppression<-as.vector(mosq_suppression)
+  
+  mosq_seasonality<-unlist(read.csv("/Imperial March 2021/malariasimulation/mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality)<-NULL
+  mosq_seasonality<-as.vector(mosq_seasonality)
+
+
+
   parameters <- list(
+    use_Ace_mosq = FALSE,
+    mosq_suppression = mosq_suppression,
+    mosq_seasonality = mosq_seasonality,
+    emergence = 0,
     dd    = 5,
     dt    = 5,
     da    = 200,
@@ -302,7 +317,7 @@ get_parameters <- function(overrides = list()) {
     id0   = 1.577533,
     kd    = .476614,
     # mortality parameters
-    average_age = 7663,
+    average_age = 8030,
     v     = .065, # NOTE: there are two definitions of this in the literature: one on line 124 and one in the parameters table
     pcm   = .774368,
     pvm   = .195768,
@@ -310,7 +325,7 @@ get_parameters <- function(overrides = list()) {
     g0    = 2,
     g     = c(.3, .6, .9),
     h     = c(.1, .4, .7),
-    gamma = 6.5,
+    gamma = 6.5, #0.01,
     model_seasonality = FALSE,
     # larval mortality rates
     me    = .05,
@@ -421,6 +436,10 @@ get_parameters <- function(overrides = list()) {
     r_tol = 1e-4,
     a_tol = 1e-4 
   )
+
+
+  #specify a fixed total_M
+  parameters$total_M_orig<-parameters$total_M
 
   # Override parameters with any client specified ones
   if (!is.list(overrides)) {

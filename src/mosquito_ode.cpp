@@ -51,17 +51,29 @@ integration_function_t create_ode(MosquitoModel& model) {
 	K=K+0.000065*K_max;
 
 
-        dxdt[get_idx(ODEState::E)] = beta * (model.total_M) //new eggs
+        if (model.use_Ace_mosq){
+	dxdt[get_idx(ODEState::E)] = beta * (model.total_M_orig) //new eggs
             - x[get_idx(ODEState::E)] / model.de //growth to late larval stage
-            - x[get_idx(ODEState::E)] * model.mue * (1 + model.gamma * n_larvae / K); //early larval deaths
+	    - x[get_idx(ODEState::E)] * model.mue; //early larval deaths
 
-        dxdt[get_idx(ODEState::L)] = x[get_idx(ODEState::E)] / model.de //growth from early larval
+	dxdt[get_idx(ODEState::L)] = x[get_idx(ODEState::E)] / model.de //growth from early larval
+            - x[get_idx(ODEState::L)] / model.dl //growth to pupal
+            - x[get_idx(ODEState::L)] * model.mul; //late larval deaths
+	}
+	if (!model.use_Ace_mosq){
+
+	dxdt[get_idx(ODEState::E)] = beta * (model.total_M) //new eggs
+             - x[get_idx(ODEState::E)] / model.de //growth to late larval stage
+            - x[get_idx(ODEState::E)] * model.mue * (1 + model.gamma * n_larvae / K); //early larval deaths
+	
+	dxdt[get_idx(ODEState::L)] = x[get_idx(ODEState::E)] / model.de //growth from early larval
             - x[get_idx(ODEState::L)] / model.dl //growth to pupal
             - x[get_idx(ODEState::L)] * model.mul * (1 + model.gamma * n_larvae / K); //late larval deaths
         
         dxdt[get_idx(ODEState::P)] = x[get_idx(ODEState::L)] / model.dl //growth to pupae
             - x[get_idx(ODEState::P)] / model.dp //growth to adult
             - x[get_idx(ODEState::P)] * model.mup; // death of pupae
+	}
     };
 }
 
@@ -75,6 +87,8 @@ MosquitoModel::MosquitoModel(
     double mul,
     double dp,
     double mup,
+    bool use_Ace_mosq,
+    double total_M_orig,
     size_t total_M,
     bool model_seasonality,
     double g0,
@@ -91,6 +105,8 @@ MosquitoModel::MosquitoModel(
     mul(mul),
     dp(dp),
     mup(mup),
+    use_Ace_mosq(use_Ace_mosq),
+    total_M_orig(total_M_orig),
     total_M(total_M),
     model_seasonality(model_seasonality),
     g0(g0),
@@ -112,6 +128,8 @@ Rcpp::XPtr<MosquitoModel> create_mosquito_model(
     double mul,
     double dp,
     double mup,
+    bool use_Ace_mosq,
+    double total_M_orig,
     size_t total_M,
     bool model_seasonality,
     double g0,
@@ -129,6 +147,8 @@ Rcpp::XPtr<MosquitoModel> create_mosquito_model(
         mul,
         dp,
         mup,
+	use_Ace_mosq,
+	total_M_orig,
         total_M,
         model_seasonality,
         g0,

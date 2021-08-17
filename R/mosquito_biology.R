@@ -21,6 +21,8 @@ initial_mosquito_counts <- function(parameters, species, foim, m) {
   n_P <- 2 * parameters$dpl * mum * m
 
   n_Sm <- m * mum / (foim + mum)
+  
+  n_SNm <-0
 
   incubation_survival <- exp(-mum * parameters$dem)
 
@@ -30,7 +32,7 @@ initial_mosquito_counts <- function(parameters, species, foim, m) {
 
   n_Im <- m * foim / (foim + mum) * incubation_survival
 
-  c(n_E, n_L, n_P, n_Sm, n_Pm, n_Im)
+  c(n_E, n_L, n_P, n_Sm, n_Pm, n_Im, n_SNm)
 }
 
 #' @title Calculate omega value
@@ -212,9 +214,13 @@ create_mosquito_emergence_process <- function(
   state,
   species,
   species_names,
+  mosq_suppression,
+  mosq_seasonality,
+  use_Ace_mosq,
   dpl
   ) {
   rate <- .5 * 1 / dpl
+  print(paste("use_Ace_mosq ",use_Ace_mosq, " t ", t, " mosq_seasonality[t] " , mosq_seasonality[t]))
   function(timestep) {
     p_counts <- vnapply(
       solvers,
@@ -222,7 +228,11 @@ create_mosquito_emergence_process <- function(
         solver_get_states(solver)[[ODE_INDICES[['P']]]]
       }
     )
+    if (use_Ace_mosq){
+    n <- sum(p_counts) * rate * mosq_suppression[t] * mosq_seasonality[t]
+    } else {
     n <- sum(p_counts) * rate
+    }
     available <- state$get_size_of('NonExistent')
     if (n > available) {
       stop(paste0(
@@ -236,7 +246,12 @@ create_mosquito_emergence_process <- function(
     non_existent <- state$get_index_of('NonExistent')
     latest <- 1
     for (i in seq_along(species_names)) {
-      to_hatch <- p_counts[[i]] * rate
+      if (use_Ace_mosq){
+      to_hatch <- p_counts[[i]] * rate * mosq_suppression[t] * mosq_seasonality[t]
+           }
+      else {
+      to_hatch <- p_counts[[i]] * rate 
+      }
       hatched <- bitset_at(non_existent, seq(latest, latest + to_hatch))
       state$queue_update('Sm', hatched)
       species$queue_update(species_names[[i]], hatched)

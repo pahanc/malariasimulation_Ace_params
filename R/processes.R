@@ -43,6 +43,9 @@ create_processes <- function(
         variables$mosquito_state,
         variables$species,
         parameters$species,
+	parameters$mosq_suppression,
+	parameters$mosq_seasonality,
+	params$use_Ace_mosq,
         parameters$dpl
       )
     )
@@ -152,7 +155,7 @@ create_processes <- function(
       individual::categorical_count_renderer_process(
         renderer,
         variables$mosquito_state,
-        c('Sm', 'Pm', 'Im')
+        c('SNm','Sm', 'Pm', 'Im')
       ),
       create_total_M_renderer_individual(
         variables$mosquito_state,

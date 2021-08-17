@@ -106,7 +106,8 @@ translate_equilibrium <- function(params) {
   translated <- list()
   for (name in names(params)) {
     if(!name %in% names(translations)) {
-      stop(paste('Unknown parameter', name))
+      #stop(paste('Unknown parameter', name))
+      translated[[name]] <- params[[name]]
     }
     translation <- translations[[name]]
     if (is.character(translation)) {

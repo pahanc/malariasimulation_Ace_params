@@ -257,7 +257,7 @@ create_variables <- function(parameters) {
         )
       )
 
-      species_M <- sum(mosquito_counts[ADULT_ODE_INDICES])
+      species_M <- sum(mosquito_counts[ADULT_ODE_INDICES[-which(ADULT_ODE_INDICES==7)]])
 
       if (species_M > 0) {
         if (length(species_values) > parameters$mosquito_limit) {
@@ -271,7 +271,7 @@ create_variables <- function(parameters) {
         state_values <- c(
           state_values,
           rep(
-            c('Sm', 'Pm', 'Im'),
+            c('Sm', 'Pm', 'Im','SNm'),
             times = mosquito_counts[ADULT_ODE_INDICES]
           )
         )
@@ -292,7 +292,7 @@ create_variables <- function(parameters) {
       species_values
     )
     mosquito_state <- individual::CategoricalVariable$new(
-      c('Sm', 'Pm', 'Im', 'NonExistent'),
+      c('Sm', 'Pm', 'Im', 'SNm', 'NonExistent'),
       state_values
     )
     variables <- c(

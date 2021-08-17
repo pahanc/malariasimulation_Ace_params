@@ -1,5 +1,5 @@
 ODE_INDICES <- c(E = 1, L = 2, P = 3)
-ADULT_ODE_INDICES <- c(Sm = 4, Pm = 5, Im = 6)
+ADULT_ODE_INDICES <- c(Sm = 4, Pm = 5, Im = 6, SNm = 7)
 
 parameterise_mosquito_models <- function(parameters) {
   lapply(
@@ -17,6 +17,8 @@ parameterise_mosquito_models <- function(parameters) {
         parameters$ml,
         parameters$dpl,
         parameters$mup,
+	parameters$use_Ace_mosq,
+	parameters$total_M_orig,
         m,
         parameters$model_seasonality,
         parameters$g0,
@@ -37,6 +39,10 @@ parameterise_mosquito_models <- function(parameters) {
             growth_model,
             parameters$mum[[i]],
             parameters$dem,
+	    parameters$mosq_suppression,
+	    parameters$mosq_seasonality,
+	    parameters$emergence,
+	    parameters$use_Ace_mosq,
             susceptible * parameters$init_foim
           )
         )

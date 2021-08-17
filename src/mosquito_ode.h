@@ -40,6 +40,8 @@ struct MosquitoModel {
     const double mul; //death rate for late larvae
     const double dp; //delay for for pupal growth
     const double mup; //death rate for pupae
+    const bool use_Ace_mosq;
+    const double total_M_orig;
     size_t total_M; //the number of adult female mosquitos in the model
     double f; //biting rate
     double mum; //adult mortality rate
@@ -59,6 +61,8 @@ struct MosquitoModel {
         double mul,
         double dp,
         double mup,
+	bool use_Ace_mosq,
+	double total_M_orig,
         size_t total_M,
         bool model_seasonality,
         double g0,

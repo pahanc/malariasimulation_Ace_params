@@ -175,6 +175,10 @@ simulate_bites <- function(
         models[[s_i]],
         mu,
         lagged_foim$get(timestep - parameters$delay_gam),
+	parameters$mosq_suppression,
+	parameters$mosq_seasonality,
+	parameters$emergence,
+	parameters$use_Ace_mosq,
         solver_states[[ADULT_ODE_INDICES['Sm']]],
         f
       )
