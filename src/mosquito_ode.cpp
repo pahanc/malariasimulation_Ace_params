@@ -52,7 +52,7 @@ integration_function_t create_ode(MosquitoModel& model) {
 
 
         if (model.use_Ace_mosq){
-	dxdt[get_idx(ODEState::E)] = beta * (model.total_M_orig) //new eggs
+	dxdt[get_idx(ODEState::E)] = beta * (model.total_M) //new eggs
             - x[get_idx(ODEState::E)] / model.de //growth to late larval stage
 	    - x[get_idx(ODEState::E)] * model.mue; //early larval deaths
 
