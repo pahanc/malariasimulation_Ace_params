@@ -20,7 +20,9 @@ AdultMosquitoModel::AdultMosquitoModel(
     std::vector<double> mosq_suppression,
     std::vector<double> mosq_seasonality,
     std::vector<double> emergence,
+    std::vector<double> total_M_orig,
     bool use_Ace_mosq,
+    bool dens_indep,
     double incubating
     ) : growth_model(growth_model), mu(mu), tau(tau)
 {
@@ -47,12 +49,34 @@ integration_function_t create_ode(AdultMosquitoModel& model) {
 
 	int t_day;
 	t_day = t;
+	int day_of_year;
+	day_of_year=t-365*(t_day/365);
+	//if (t>365) Rcpp::Rcout << "day of year " << day_of_year << " t " << t << " t_day/365 "<<t_day/365<<  endl;
 
 	std::ofstream emerg_out;
 
         if (model.use_Ace_mosq){
-	dxdt[get_idx(AdultODEState::SN)] =
-            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)] / model.growth_model.dp; //growth to adult female
+
+		if (model.dens_indep){//this not working right now
+
+			/*dxdt[get_idx(AdultODEState::SN)] =.5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)] * model.growth_model.total_M/model.total_M_orig[day_of_year] / model.growth_model.dp; //growth to adult female
+			dxdt[get_idx(AdultODEState::S)] =
+            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)] * model.growth_model.total_M/model.total_M_orig[day_of_year] / model.growth_model.dp //growth to adult female
+            - x[get_idx(AdultODEState::S)] * model.foim //infections
+            - x[get_idx(AdultODEState::S)] * model.mu; //deaths   
+
+
+		if (t>0 && t<2) Rcpp::Rcout << " total_M " << model.growth_model.total_M << " ratio " << model.growth_model.total_M/model.total_M_orig[day_of_year] << endl; */
+
+		}
+
+		if (!model.dens_indep){
+			dxdt[get_idx(AdultODEState::SN)] =.5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)] / model.growth_model.dp; //growth to adult female
+			dxdt[get_idx(AdultODEState::S)] =
+            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)]/ model.growth_model.dp //growth to adult female
+            - x[get_idx(AdultODEState::S)] * model.foim //infections
+            - x[get_idx(AdultODEState::S)] * model.mu; //deaths  
+		}
 	    //if (t==2) Rcpp::Rcout << t << " " << dxdt[get_idx(AdultODEState::SN)] << endl;
 	    
 	    //if (t>1 && int(10*t)%10==0){
@@ -63,11 +87,8 @@ integration_function_t create_ode(AdultMosquitoModel& model) {
 	    //}
 
 
-	dxdt[get_idx(AdultODEState::S)] =
-            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(ODEState::P)] / model.growth_model.dp //growth to adult female
-            - x[get_idx(AdultODEState::S)] * model.foim //infections
-            - x[get_idx(AdultODEState::S)] * model.mu; //deaths   
 	}
+
 	if (!model.use_Ace_mosq){
 	dxdt[get_idx(AdultODEState::SN)] =
             .5 * x[get_idx(ODEState::P)] / model.growth_model.dp; //growth to adult female
@@ -108,10 +129,12 @@ Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(
     std::vector<double> mosq_suppression,
     std::vector<double> mosq_seasonality,
     std::vector<double> emergence,
+    std::vector<double> total_M_orig,
     bool use_Ace_mosq,
+    bool dens_indep,
     double susceptible
     ) {
-    auto model = new AdultMosquitoModel(*growth_model, mu, tau, mosq_suppression, mosq_seasonality, emergence, use_Ace_mosq, susceptible);
+    auto model = new AdultMosquitoModel(*growth_model, mu, tau, mosq_suppression, mosq_seasonality, emergence, total_M_orig, use_Ace_mosq, dens_indep, susceptible);
     return Rcpp::XPtr<AdultMosquitoModel>(model, true);
 }
 
@@ -123,7 +146,9 @@ void adult_mosquito_model_update(
     std::vector<double> mosq_suppression,
     std::vector<double> mosq_seasonality,
     std::vector<double> emergence,
+    std::vector<double> total_M_orig,
     bool use_Ace_mosq,
+    bool dens_indep,
     double susceptible,
     double f
     ) {
@@ -134,7 +159,9 @@ void adult_mosquito_model_update(
     model->mosq_suppression = mosq_suppression;
     model->mosq_seasonality = mosq_seasonality;
     model->emergence = emergence;
+    model->total_M_orig = total_M_orig;
     model->use_Ace_mosq = use_Ace_mosq;
+    model->dens_indep = dens_indep;
     model->lagged_incubating.push(susceptible * foim);
     if (model->lagged_incubating.size() > 0) {
         model->lagged_incubating.pop();

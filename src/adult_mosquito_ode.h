@@ -28,9 +28,11 @@ struct AdultMosquitoModel {
     std::vector<double> mosq_suppression;
     std::vector<double> mosq_seasonality;
     std::vector<double> emergence;
+    std::vector<double> total_M_orig;
     bool use_Ace_mosq;
+    bool dens_indep;
     double foim; //force of infection towards mosquitoes
-    AdultMosquitoModel(MosquitoModel, double, double,std::vector<double>,std::vector<double>,std::vector<double>,bool,double);
+    AdultMosquitoModel(MosquitoModel, double, double,std::vector<double>,std::vector<double>,std::vector<double>,std::vector<double>,bool,bool,double);
 };
 
 integration_function_t create_ode(AdultMosquitoModel& model);

@@ -178,7 +178,9 @@ simulate_bites <- function(
 	parameters$mosq_suppression,
 	parameters$mosq_seasonality,
 	parameters$emergence,
+	parameters$total_M_orig,
 	parameters$use_Ace_mosq,
+	parameters$dens_indep,
         solver_states[[ADULT_ODE_INDICES['Sm']]],
         f
       )

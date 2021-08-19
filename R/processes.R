@@ -46,6 +46,7 @@ create_processes <- function(
 	parameters$mosq_suppression,
 	parameters$mosq_seasonality,
 	params$use_Ace_mosq,
+	parameters$dens_indep,
         parameters$dpl
       )
     )

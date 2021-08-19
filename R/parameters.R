@@ -239,13 +239,13 @@
 #' @export
 get_parameters <- function(overrides = list()) {
   
-  mosq_suppression<-unlist(read.csv("input files/mosq_suppression.csv",header=F,colClasses="numeric"))
-  #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
+  #mosq_suppression<-unlist(read.csv("input files/mosq_suppression.csv",header=F,colClasses="numeric"))
+  mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
   dimnames(mosq_suppression)<-NULL
   mosq_suppression<-as.vector(mosq_suppression)
   
-  mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
-  #mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project//mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  #mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_seasonality2.csv",header=F,colClasses="numeric"))
   dimnames(mosq_seasonality)<-NULL
   mosq_seasonality<-as.vector(mosq_seasonality)
 
@@ -256,12 +256,13 @@ get_parameters <- function(overrides = list()) {
     mosq_suppression = mosq_suppression,
     mosq_seasonality = mosq_seasonality,
     emergence = 0,
+    dens_indep = FALSE,
     dd    = 5,
     dt    = 5,
     da    = 200,
     du    = 110,
     del   = 5,
-    dl    = 5,
+    dl    = 1,
     dpl   = 1,
     mup   = .1253333,
     mum   = .1253333,
@@ -440,8 +441,9 @@ get_parameters <- function(overrides = list()) {
   )
 
 
-  #specify a fixed total_M
-  parameters$total_M_orig<-parameters$total_M
+  #specify a fixed total_M in the absense of interventions
+  parameters$total_M_orig<-parameters$total_M*mosq_seasonality[1:365]
+
 
   # Override parameters with any client specified ones
   if (!is.list(overrides)) {

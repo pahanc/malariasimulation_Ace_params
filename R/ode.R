@@ -18,7 +18,6 @@ parameterise_mosquito_models <- function(parameters) {
         parameters$dpl,
         parameters$mup,
 	parameters$use_Ace_mosq,
-	parameters$total_M_orig,
         m,
         parameters$model_seasonality,
         parameters$g0,
@@ -42,7 +41,9 @@ parameterise_mosquito_models <- function(parameters) {
 	    parameters$mosq_suppression,
 	    parameters$mosq_seasonality,
 	    parameters$emergence,
+	    parameters$total_M_orig,
 	    parameters$use_Ace_mosq,
+	    parameters$dens_indep,
             susceptible * parameters$init_foim
           )
         )

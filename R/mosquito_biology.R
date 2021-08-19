@@ -217,6 +217,7 @@ create_mosquito_emergence_process <- function(
   mosq_suppression,
   mosq_seasonality,
   use_Ace_mosq,
+  dens_indep,
   dpl
   ) {
   rate <- .5 * 1 / dpl
