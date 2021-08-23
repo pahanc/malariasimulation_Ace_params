@@ -243,6 +243,11 @@ get_parameters <- function(overrides = list()) {
   #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
   dimnames(mosq_suppression)<-NULL
   mosq_suppression<-as.vector(mosq_suppression)
+
+  mosq_supp_lst<-list()
+  mosq_supp_lst[[1]]<-mosq_suppression
+  mosq_supp_lst[[2]]<-mosq_suppression
+  mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression))
   
   mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
   #mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_seasonality2.csv",header=F,colClasses="numeric"))
@@ -253,7 +258,7 @@ get_parameters <- function(overrides = list()) {
 
   parameters <- list(
     use_Ace_mosq = FALSE,
-    mosq_suppression = mosq_suppression,
+    mosq_suppression = mosq_supp_lst,
     mosq_seasonality = mosq_seasonality,
     emergence = 0,
     dens_indep = FALSE,

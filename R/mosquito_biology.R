@@ -230,7 +230,7 @@ create_mosquito_emergence_process <- function(
       }
     )
     if (use_Ace_mosq){
-    n <- sum(p_counts) * rate * mosq_suppression[t] * mosq_seasonality[t]
+    n <- sum(p_counts) * rate * mosq_suppression[[3]][t] * mosq_seasonality[t]
     } else {
     n <- sum(p_counts) * rate
     }
@@ -248,7 +248,7 @@ create_mosquito_emergence_process <- function(
     latest <- 1
     for (i in seq_along(species_names)) {
       if (use_Ace_mosq){
-      to_hatch <- p_counts[[i]] * rate * mosq_suppression[t] * mosq_seasonality[t]
+      to_hatch <- p_counts[[i]] * rate * mosq_suppression[[i]][t] * mosq_seasonality[t]
            }
       else {
       to_hatch <- p_counts[[i]] * rate 
