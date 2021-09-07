@@ -249,10 +249,10 @@ get_parameters <- function(overrides = list()) {
   mosq_supp_lst[[2]]<-mosq_suppression
   mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression))
   
-  mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  #mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
   #mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_seasonality2.csv",header=F,colClasses="numeric"))
-  dimnames(mosq_seasonality)<-NULL
-  mosq_seasonality<-as.vector(mosq_seasonality)
+  #dimnames(mosq_seasonality)<-NULL
+  #mosq_seasonality<-as.vector(mosq_seasonality)
 
 
 
