@@ -239,7 +239,7 @@
 #' @export
 get_parameters <- function(overrides = list(),square_number) {
   
-  supp_filename<-paste("mosq seasonality files/mosq_suppression_full",square_number,".csv",sep="")
+  supp_filename<-paste("mosq_seasonality_files_full/mosq_suppression_full",square_number,".csv",sep="")
   mosq_suppression<-unlist(read.csv(supp_filename,header=F,colClasses="numeric"))
   #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
   dimnames(mosq_suppression)<-NULL
@@ -250,7 +250,7 @@ get_parameters <- function(overrides = list(),square_number) {
   mosq_supp_lst[[2]]<-mosq_suppression
   mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression))
   
-  seas_filename<-paste("mosq seasonality files/mosq_seasonality_full",square_number,".csv",sep = "")
+  seas_filename<-paste("mosq_seasonality_files_full/mosq_seasonality_full",square_number,".csv",sep = "")
   mosq_seasonality<-unlist(read.csv(seas_filename,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality)<-NULL
   mosq_seasonality<-as.vector(mosq_seasonality)
