@@ -239,13 +239,13 @@
 #' @export
 get_parameters <- function(overrides = list(),square_number) {
   
-  supp_filename_gamb<-paste("Seas and supp species specific/mosq_suppression_costly_gamb",square_number,".csv",sep="")
+  supp_filename_gamb<-paste("Seas and supp species specific/mosq_suppression_med_gamb",square_number,".csv",sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
   #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
 
-  supp_filename_arab<-paste("Seas and supp species specific/mosq_suppression_costly_arab",square_number,".csv",sep="")
+  supp_filename_arab<-paste("Seas and supp species specific/mosq_suppression_med_arab",square_number,".csv",sep="")
   mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_arab)<-NULL
   mosq_suppression_arab<-as.vector(mosq_suppression_arab)
@@ -256,17 +256,17 @@ get_parameters <- function(overrides = list(),square_number) {
   mosq_supp_lst[[2]]<-mosq_suppression_arab
   mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression_gamb))
   
-  seas_filename_gamb<-paste("Seas and supp species specific/mosq_seasonality_costly_gamb",square_number,".csv",sep = "")
+  seas_filename_gamb<-paste("Seas and supp species specific/mosq_seasonality_med_gamb",square_number,".csv",sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_gamb)<-NULL
   mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
 
-  seas_filename_arab<-paste("Seas and supp species specific/mosq_seasonality_costly_arab",square_number,".csv",sep = "")
+  seas_filename_arab<-paste("Seas and supp species specific/mosq_seasonality_med_arab",square_number,".csv",sep = "")
   mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_arab)<-NULL
   mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
 
-  seas_filename_fun<-paste("Seas and supp species specific/mosq_seasonality_costly_fun",square_number,".csv",sep = "")
+  seas_filename_fun<-paste("Seas and supp species specific/mosq_seasonality_med_fun",square_number,".csv",sep = "")
   mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_fun)<-NULL
   mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
