@@ -473,7 +473,7 @@ get_parameters <- function(overrides = list(),square_number) {
 
 
   #specify a fixed total_M in the absense of interventions
-  parameters$total_M_orig<-parameters$total_M*mosq_seasonality[1:365]
+  parameters$total_M_orig<-parameters$total_M*mosq_seasonality_gamb[1:365]
 
 
   # Override parameters with any client specified ones
