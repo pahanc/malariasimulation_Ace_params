@@ -254,7 +254,7 @@ get_parameters <- function(overrides = list(),square_number) {
   mosq_supp_lst<-list()
   mosq_supp_lst[[1]]<-mosq_suppression_gamb
   mosq_supp_lst[[2]]<-mosq_suppression_arab
-  mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression))
+  mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression_gamb))
   
   seas_filename_gamb<-paste("Seas and supp species specific/mosq_seasonality_costly_gamb",square_number,".csv",sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
