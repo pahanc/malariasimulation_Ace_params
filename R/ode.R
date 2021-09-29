@@ -39,7 +39,7 @@ parameterise_mosquito_models <- function(parameters) {
             parameters$mum[[i]],
             parameters$dem,
 	    parameters$mosq_suppression[[i]],
-	    parameters$mosq_seasonality,
+	    parameters$mosq_seasonality[[i]],
 	    parameters$emergence,
 	    parameters$total_M_orig,
 	    parameters$use_Ace_mosq,

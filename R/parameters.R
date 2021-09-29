@@ -239,32 +239,53 @@
 #' @export
 get_parameters <- function(overrides = list(),square_number) {
   
-  supp_filename<-paste("mosq_seasonality_files_full/mosq_suppression_test",square_number,".csv",sep="")
-  mosq_suppression<-unlist(read.csv(supp_filename,header=F,colClasses="numeric"))
+  supp_filename_gamb<-paste("Seas and supp species specific/mosq_suppression_costly_gamb",square_number,".csv",sep="")
+  mosq_suppression_gamb<-unlist(read.csv(supp_filename,header=F,colClasses="numeric"))
   #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
-  dimnames(mosq_suppression)<-NULL
-  mosq_suppression<-as.vector(mosq_suppression)
+  dimnames(mosq_suppression_gamb)<-NULL
+  mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
+
+  supp_filename_arab<-paste("Seas and supp species specific/mosq_suppression_costly_arab",square_number,".csv",sep="")
+  mosq_suppression_arab<-unlist(read.csv(supp_filename,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_arab)<-NULL
+  mosq_suppression_arab<-as.vector(mosq_suppression_arab)
+
 
   mosq_supp_lst<-list()
-  mosq_supp_lst[[1]]<-mosq_suppression
-  mosq_supp_lst[[2]]<-mosq_suppression
+  mosq_supp_lst[[1]]<-mosq_suppression_gamb
+  mosq_supp_lst[[2]]<-mosq_suppression_arab
   mosq_supp_lst[[3]]<-rep(1,length(mosq_suppression))
   
-  seas_filename<-paste("mosq_seasonality_files_full/mosq_seasonality_test",square_number,".csv",sep = "")
-  mosq_seasonality<-unlist(read.csv(seas_filename,header=F,colClasses="numeric"))
-  dimnames(mosq_seasonality)<-NULL
-  mosq_seasonality<-as.vector(mosq_seasonality)
+  seas_filename_gamb<-paste("Seas and supp species specific/mosq_seasonality_costly_gamb",square_number,".csv",sep = "")
+  mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_gamb)<-NULL
+  mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
+
+  seas_filename_arab<-paste("Seas and supp species specific/mosq_seasonality_costly_arab",square_number,".csv",sep = "")
+  mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_arab)<-NULL
+  mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
+
+  seas_filename_fun<-paste("Seas and supp species specific/mosq_seasonality_costly_fun",square_number,".csv",sep = "")
+  mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_fun)<-NULL
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
+
   #mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
   #mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_seasonality2.csv",header=F,colClasses="numeric"))
   #dimnames(mosq_seasonality)<-NULL
   #mosq_seasonality<-as.vector(mosq_seasonality)
 
+  mosq_seas_lst<-list()
+  mosq_seas_lst[[1]]<-mosq_seasonality_gamb
+  mosq_seas_lst[[2]]<-mosq_seasonality_arab
+  mosq_seas_lst[[3]]<-mosq_seasonality_fun
 
 
   parameters <- list(
     use_Ace_mosq = FALSE,
     mosq_suppression = mosq_supp_lst,
-    mosq_seasonality = mosq_seasonality,
+    mosq_seasonality = mosq_seas_lst,
     emergence = 0,
     dens_indep = FALSE,
     dd    = 5,

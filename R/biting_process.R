@@ -176,7 +176,7 @@ simulate_bites <- function(
         mu,
         lagged_foim$get(timestep - parameters$delay_gam),
 	parameters$mosq_suppression[[s_i]],
-	parameters$mosq_seasonality,
+	parameters$mosq_seasonality[[s_i]],
 	parameters$emergence,
 	parameters$total_M_orig,
 	parameters$use_Ace_mosq,
