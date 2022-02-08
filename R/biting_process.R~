@@ -174,8 +174,8 @@ simulate_bites <- function(
     } else {
       adult_mosquito_model_update(
         models[[s_i]],
-        mu,
-	 #ATSB_adjusted_mortality(mu, parameters, timestep),
+         #mu,
+	ATSB_adjusted_mortality(mu, parameters, timestep),
         lagged_foim$get(timestep - parameters$delay_gam),
 	parameters$mosq_suppression[[s_i]],
 	parameters$mosq_seasonality[[s_i]],

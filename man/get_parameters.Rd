@@ -4,7 +4,7 @@
 \alias{get_parameters}
 \title{Get model parameters}
 \usage{
-get_parameters(overrides = list())
+get_parameters(overrides = list(), square_number)
 }
 \arguments{
 \item{overrides}{a named list of parameter values to use instead of defaults

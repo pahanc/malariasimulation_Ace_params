@@ -1,6 +1,6 @@
 #' @title Parameterise an ATSB strategy
 #'
-#' @description The model will switch on ATSB. 
+#' @description The model will switch on ATSB 
 #'
 #' @param parameters a list of parameters to modify
 #' @param timesteps the timesteps at which to have ATSB active
@@ -16,9 +16,10 @@ set_atsb <- function(
   }
   parameters$atsb <- TRUE
   parameters$atsb_timesteps <- timesteps
-  parameters$atsb_coverages <- coverages	
+  parameters$atsb_coverages <- coverages
   parameters
 }
+
 
 #' @title Parameterise a bed net strategy
 #'
