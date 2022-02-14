@@ -1,0 +1,14 @@
+pandoc: 2.7.3
+pkgdown: 2.0.2
+pkgdown_sha: ~
+articles:
+  Demography: Demography.html
+  EIRprevmatch: EIRprevmatch.html
+  MDA: MDA.html
+  Model: Model.html
+  Treatment: Treatment.html
+  Vaccines: Vaccines.html
+  Variation: Variation.html
+  VectorControl: VectorControl.html
+last_built: 2022-02-14T12:12Z
+
