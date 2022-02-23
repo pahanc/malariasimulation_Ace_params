@@ -148,9 +148,10 @@ peak_season_offset <- function(parameters) {
 #' @param Z the mean probability that a mosquito is repelled
 #' @param Z the mean probability that a mosquito is repelled
 #' @noRd
-death_rate <- function(f, W, Z, species, parameters) {
-  mum <- parameters$mum[[species]]
-  p1_0 <- exp(-mum * parameters$foraging_time[[species]])
+death_rate <- function(f, W, Z, species, parameters, timestep) {
+  mum <- parameters$mum[[species]] 
+  mum <- ATSB_adjusted_mortality(mum, parameters, timestep)
+  p1_0 <- exp(-mum * parameters$foraging_time)
   gonotrophic_cycle <- get_gonotrophic_cycle(species, parameters)
   p2 <- exp(-mum * gonotrophic_cycle)
   p1 <- p1_0 * W / (1 - Z * p1_0)
@@ -214,9 +215,13 @@ create_mosquito_emergence_process <- function(
   state,
   species,
   species_names,
+  mosq_suppression,
+  mosq_seasonality,
+  use_Ace_mosq,
   dpl
   ) {
   rate <- .5 * 1 / dpl
+  print(paste("use_Ace_mosq ",use_Ace_mosq))#, " t ", t, " mosq_seasonality[t] " , mosq_seasonality[t]))
   function(timestep) {
     p_counts <- vnapply(
       solvers,
@@ -224,7 +229,11 @@ create_mosquito_emergence_process <- function(
         solver_get_states(solver)[[ODE_INDICES[['P']]]]
       }
     )
+    if (use_Ace_mosq){
+    n <- sum(p_counts) * rate * mosq_suppression[[3]][t] * mosq_seasonality[[3]][t]
+    } else {
     n <- sum(p_counts) * rate
+    }
     available <- state$get_size_of('NonExistent')
     if (n > available) {
       stop(paste0(
@@ -238,7 +247,12 @@ create_mosquito_emergence_process <- function(
     non_existent <- state$get_index_of('NonExistent')
     latest <- 1
     for (i in seq_along(species_names)) {
-      to_hatch <- p_counts[[i]] * rate
+      if (use_Ace_mosq){
+      to_hatch <- p_counts[[i]] * rate * mosq_suppression[[i]][t] * mosq_seasonality[[3]][t]
+           }
+      else {
+      to_hatch <- p_counts[[i]] * rate 
+      }
       hatched <- bitset_at(non_existent, seq(latest, latest + to_hatch))
       state$queue_update('Sm', hatched)
       species$queue_update(species_names[[i]], hatched)

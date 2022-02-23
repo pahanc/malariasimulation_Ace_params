@@ -17,6 +17,7 @@ parameterise_mosquito_models <- function(parameters) {
         parameters$ml,
         parameters$dpl,
         parameters$mup,
+	parameters$use_Ace_mosq,
         m,
         parameters$model_seasonality,
         parameters$g0,
@@ -39,7 +40,11 @@ parameterise_mosquito_models <- function(parameters) {
           create_adult_mosquito_model(
             growth_model,
             parameters$mum[[i]],
+
             parameters$dem,
+	    parameters$mosq_suppression[[i]],
+	    parameters$mosq_seasonality[[i]],
+	    parameters$use_Ace_mosq,
             susceptible * parameters$init_foim,
             parameters$init_foim
           )

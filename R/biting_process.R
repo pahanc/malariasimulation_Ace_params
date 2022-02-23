@@ -166,6 +166,9 @@ simulate_bites <- function(
         models[[s_i]],
         mu,
         foim,
+	parameters$mosq_suppression[[s_i]],
+	parameters$mosq_seasonality[[s_i]],
+	parameters$use_Ace_mosq,
         solver_states[[ADULT_ODE_INDICES['Sm']]],
         f
       )
@@ -180,6 +183,17 @@ simulate_bites <- function(
 # =================
 # Utility functions
 # =================
+
+ATSB_adjusted_mortality<-function(mu, parameters, timestep){
+	 if (parameters$atsb){
+	      matches <- timestep == parameters$atsb_timesteps
+    	         if (any(matches)) {	
+ 	   	 	mu_atsb<-parameters$mum_atsb*parameters$atsb_coverages[timestep]
+  	   	 	return(mu+mu_atsb)
+		 }
+	 	 else {return(parameters$mum[1])}
+	 }  else {return(parameters$mum[1])}
+}
 
 calculate_eir <- function(species, solvers, variables, parameters, timestep) {
   a <- human_blood_meal_rate(species, variables, parameters, timestep)

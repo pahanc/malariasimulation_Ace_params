@@ -1,3 +1,25 @@
+#' @title Parameterise an ATSB strategy
+#'
+#' @description The model will switch on ATSB. 
+#'
+#' @param parameters a list of parameters to modify
+#' @param timesteps the timesteps at which to have ATSB active
+#' @param coverages the proportion of the human population who receive ATSB
+#' @export
+set_atsb <- function(
+  parameters,
+  timesteps,
+  coverages
+  ) {
+  if (length(timesteps) != length(coverages)) {
+    stop('timesteps and coverages must align')
+  }
+  parameters$atsb <- TRUE
+  parameters$atsb_timesteps <- timesteps
+  parameters$atsb_coverages <- coverages	
+  parameters
+}
+
 #' @title Parameterise a bed net strategy
 #'
 #' @description The model will distribute bed nets at `timesteps` to a random

@@ -31,8 +31,11 @@ struct AdultMosquitoModel {
     std::queue<double> lagged_incubating; //last tau values for incubating mosquitos
     double mu; //death rate for adult female mosquitoes
     const double tau; //extrinsic incubation period
+    std::vector<double> mosq_suppression;
+    std::vector<double> mosq_seasonality;
+    bool use_Ace_mosq;
     double foim; //force of infection towards mosquitoes
-    AdultMosquitoModel(AquaticMosquitoModel, double, double, double, double);
+    AdultMosquitoModel(AquaticMosquitoModel, double, double, std::vector<double>,std::vector<double>,bool,double,double);
 };
 
 // create a system of equations for the solver

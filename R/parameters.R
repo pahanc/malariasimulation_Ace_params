@@ -233,8 +233,68 @@
 #' rates; default = TRUE 
 #'
 #' @export
-get_parameters <- function(overrides = list()) {
+get_parameters <- function(overrides = list(),square_number) {
+  
+  supp_filename_gamb<-paste("Seas and supp species specific/With funestus suppression/mosq_suppression_costly_gamb",square_number,".csv",sep="")
+  mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
+  #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_gamb)<-NULL
+  #mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
+  mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+
+  supp_filename_arab<-paste("Seas and supp species specific/With funestus suppression/mosq_suppression_costly_arab",square_number,".csv",sep="")
+  mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_arab)<-NULL
+  #mosq_suppression_arab<-as.vector(mosq_suppression_arab)
+  mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+
+
+  supp_filename_fun<-paste("Seas and supp species specific/With funestus suppression/mosq_suppression_costly_fun",square_number,".csv",sep="")
+  mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_fun)<-NULL
+  #mosq_suppression_fun<-as.vector(mosq_suppression_fun)
+  mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+
+
+
+
+  mosq_supp_lst<-list()
+  mosq_supp_lst[[1]]<-mosq_suppression_gamb
+  mosq_supp_lst[[2]]<-mosq_suppression_arab
+  mosq_supp_lst[[3]]<-mosq_suppression_fun
+
+  seas_filename_gamb<-paste("Seas and supp species specific/With funestus suppression/mosq_seasonality_costly_gamb",square_number,".csv",sep = "")
+  mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_gamb)<-NULL
+  mosq_seasonality_gamb<-as.vector(mosq_seasonality_gamb)
+
+  seas_filename_arab<-paste("Seas and supp species specific/With funestus suppression/mosq_seasonality_costly_arab",square_number,".csv",sep = "")
+  mosq_seasonality_arab<-unlist(read.csv(seas_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_arab)<-NULL
+  mosq_seasonality_arab<-as.vector(mosq_seasonality_arab)
+
+  seas_filename_fun<-paste("Seas and supp species specific/With funestus suppression/mosq_seasonality_costly_fun",square_number,".csv",sep = "")
+  mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_fun)<-NULL
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
+
+  #mosq_seasonality<-unlist(read.csv("input files/mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  #mosq_seasonality<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_seasonality2.csv",header=F,colClasses="numeric"))
+  #dimnames(mosq_seasonality)<-NULL
+  #mosq_seasonality<-as.vector(mosq_seasonality)
+
+  mosq_seas_lst<-list()
+  mosq_seas_lst[[1]]<-mosq_seasonality_gamb
+  mosq_seas_lst[[2]]<-mosq_seasonality_arab
+  mosq_seas_lst[[3]]<-mosq_seasonality_fun
+
+
   parameters <- list(
+    use_Ace_mosq = FALSE,
+    mosq_suppression = mosq_supp_lst,
+    mosq_seasonality = mosq_seas_lst,
+    emergence = 0,
+    dens_indep = FALSE,
     dd    = 5,
     dt    = 5,
     da    = 200,
@@ -244,6 +304,7 @@ get_parameters <- function(overrides = list()) {
     dpl   = .643,
     mup   = .249,
     mum   = .1253333,
+    mum_atsb = 0.09,
     sigma_squared   = 1.67,
     n_heterogeneity_groups = 5,
     # immunity decay rates
@@ -296,7 +357,7 @@ get_parameters <- function(overrides = list()) {
     id0   = 1.577533,
     kd    = .476614,
     # mortality parameters
-    average_age = 7663,
+    average_age = 8030,
     pcm   = .774368,
     pvm   = .195768,
     # carrying capacity parameters
@@ -332,6 +393,8 @@ get_parameters <- function(overrides = list()) {
     blood_meal_rates    = 1/3,
     Q0                  = .92,
     foraging_time       = .69,
+    # atsb
+    atsb = FALSE,
     # bed nets
     bednets = FALSE,
     phi_bednets = .85,
@@ -411,6 +474,9 @@ get_parameters <- function(overrides = list()) {
     a_tol = 1e-4,
     ode_max_steps = 1e6
   )
+
+ #specify a fixed total_M in the absense of interventions
+  #parameters$total_M_orig<-parameters$total_M*mosq_seasonality_gamb[1:365]
 
   # Override parameters with any client specified ones
   if (!is.list(overrides)) {

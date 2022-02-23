@@ -7,6 +7,10 @@
 
 #include <Rcpp.h>
 #include "aquatic_mosquito_eqs.h"
+#include <sstream>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 integration_function_t create_eqs(AquaticMosquitoModel& model) {
     return [&model](const state_t& x, state_t& dxdt, double t) {
@@ -23,7 +27,25 @@ integration_function_t create_eqs(AquaticMosquitoModel& model) {
         auto beta = eggs_laid(model.beta, model.mum, model.f);
         auto n_larvae = x[get_idx(AquaticState::E)] + x[get_idx(AquaticState::L)];
 
-        dxdt[get_idx(AquaticState::E)] = beta * (model.total_M) //new eggs
+	 Rcpp::Rcout << "model.use_Ace_mosq " << model.use_Ace_mosq  << endl;
+
+
+	if (model.use_Ace_mosq){
+        //dxdt[get_idx(AquaticState::E)] = beta * (model.total_M) //new eggs
+        //    - x[get_idx(AquaticState::E)] / model.de //growth to late larval stage
+        //    - x[get_idx(AquaticState::E)] * model.mue * (1 + n_larvae / K); //early larval deaths
+
+        //dxdt[get_idx(AquaticState::L)] = x[get_idx(AquaticState::E)] / model.de //growth from early larval
+        //    - x[get_idx(AquaticState::L)] / model.dl //growth to pupal
+        //    - x[get_idx(AquaticState::L)] * model.mul * (1 + model.gamma * n_larvae / K); //late larval deaths
+        
+        //dxdt[get_idx(AquaticState::P)] = x[get_idx(AquaticState::L)] / model.dl //growth to pupae
+        //    - x[get_idx(AquaticState::P)] / model.dp //growth to adult
+        //    - x[get_idx(AquaticState::P)] * model.mup; // death of pupae
+    //};
+    }
+    if (!model.use_Ace_mosq){
+	 dxdt[get_idx(AquaticState::E)] = beta * (model.total_M) //new eggs
             - x[get_idx(AquaticState::E)] / model.de //growth to late larval stage
             - x[get_idx(AquaticState::E)] * model.mue * (1 + n_larvae / K); //early larval deaths
 
@@ -34,7 +56,10 @@ integration_function_t create_eqs(AquaticMosquitoModel& model) {
         dxdt[get_idx(AquaticState::P)] = x[get_idx(AquaticState::L)] / model.dl //growth to pupae
             - x[get_idx(AquaticState::P)] / model.dp //growth to adult
             - x[get_idx(AquaticState::P)] * model.mup; // death of pupae
+	 Rcpp::Rcout << "x[get_idx(AquaticState::P)] " << x[get_idx(AquaticState::P)] << endl;
+    }
     };
+
 }
 
 AquaticMosquitoModel::AquaticMosquitoModel(
@@ -47,6 +72,7 @@ AquaticMosquitoModel::AquaticMosquitoModel(
     double mul,
     double dp,
     double mup,
+    bool use_Ace_mosq,    
     size_t total_M,
     bool model_seasonality,
     double g0,
@@ -66,6 +92,7 @@ AquaticMosquitoModel::AquaticMosquitoModel(
     mul(mul),
     dp(dp),
     mup(mup),
+    use_Ace_mosq(use_Ace_mosq),
     total_M(total_M),
     model_seasonality(model_seasonality),
     g0(g0),
@@ -90,6 +117,7 @@ Rcpp::XPtr<AquaticMosquitoModel> create_aquatic_mosquito_model(
     double mul,
     double dp,
     double mup,
+    bool use_Ace_mosq,    
     size_t total_M,
     bool model_seasonality,
     double g0,
@@ -110,6 +138,7 @@ Rcpp::XPtr<AquaticMosquitoModel> create_aquatic_mosquito_model(
         mul,
         dp,
         mup,
+	use_Ace_mosq,	
         total_M,
         model_seasonality,
         g0,

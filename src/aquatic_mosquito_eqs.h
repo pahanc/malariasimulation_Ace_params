@@ -48,6 +48,7 @@ struct AquaticMosquitoModel {
     const double mul; //death rate for late larvae
     const double dp; //delay for for pupal growth
     const double mup; //death rate for pupae
+    const bool use_Ace_mosq;    
     size_t total_M; //the number of adult female mosquitos in the model
     const bool model_seasonality; //whether to model seasonality
     const double g0; //fourier shape parameter
@@ -68,6 +69,7 @@ struct AquaticMosquitoModel {
         double mul,
         double dp,
         double mup,
+	bool use_Ace_mosq,	
         size_t total_M,
         bool model_seasonality,
         double g0,

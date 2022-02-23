@@ -43,6 +43,9 @@ create_processes <- function(
         variables$mosquito_state,
         variables$species,
         parameters$species,
+	parameters$mosq_suppression,
+	parameters$mosq_seasonality,
+	params$use_Ace_mosq,
         parameters$dpl
       )
     )
