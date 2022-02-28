@@ -27,7 +27,7 @@ integration_function_t create_eqs(AquaticMosquitoModel& model) {
         auto beta = eggs_laid(model.beta, model.mum, model.f);
         auto n_larvae = x[get_idx(AquaticState::E)] + x[get_idx(AquaticState::L)];
 
-	 Rcpp::Rcout << "model.use_Ace_mosq " << model.use_Ace_mosq  << endl;
+	 //Rcpp::Rcout << "model.use_Ace_mosq " << model.use_Ace_mosq  << endl;
 
 
 	if (model.use_Ace_mosq){
@@ -56,7 +56,7 @@ integration_function_t create_eqs(AquaticMosquitoModel& model) {
         dxdt[get_idx(AquaticState::P)] = x[get_idx(AquaticState::L)] / model.dl //growth to pupae
             - x[get_idx(AquaticState::P)] / model.dp //growth to adult
             - x[get_idx(AquaticState::P)] * model.mup; // death of pupae
-	 Rcpp::Rcout << "x[get_idx(AquaticState::P)] " << x[get_idx(AquaticState::P)] << endl;
+	 //Rcpp::Rcout << "x[get_idx(AquaticState::P)] " << x[get_idx(AquaticState::P)] << endl;
     }
     };
 

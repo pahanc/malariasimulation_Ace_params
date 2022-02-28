@@ -39,7 +39,6 @@ prob_bitten <- function(
 
   if (parameters$spraying) {
     phi_indoors <- parameters$phi_indoors[[species]]
-    print(paste("variables$spray_time",variables$spray_time$get_values(),sep=" "))
     protected <- variables$spray_time$get_index_of(set=-1)$not(TRUE)
     spray_time <- variables$spray_time$get_values(protected)
     matches <- match(spray_time, parameters$spraying_timesteps)

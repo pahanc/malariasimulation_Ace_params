@@ -135,7 +135,8 @@ simulate_bites <- function(
     lagged_infectivity$save(sum(human_infectivity * .pi), timestep)
     foim <- calculate_foim(a, infectivity)
     renderer$render(paste0('FOIM_', species_name), foim, timestep)
-    mu <- death_rate(f, W, Z, s_i, parameters)
+    mu <- death_rate(f, W, Z, s_i, parameters,timestep)
+    #print(paste("mu ", mu, " timestep ", timestep,"species_name",species_name,"species",s_i))
     renderer$render(paste0('mu_', species_name), mu, timestep)
 
     if (parameters$individual_mosquitoes) {
@@ -162,6 +163,7 @@ simulate_bites <- function(
         timestep
       )
     } else {
+      #print(paste("s_i",s_i,"mu",mu,"foim",foim,parameters$mosq_suppression[[s_i]][i],parameters$mosq_seasonality[[s_i]][1],"f",f,solver_states[[ADULT_ODE_INDICES['Sm']]]))
       adult_mosquito_model_update(
         models[[s_i]],
         mu,

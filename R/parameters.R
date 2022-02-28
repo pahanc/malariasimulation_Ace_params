@@ -233,7 +233,7 @@
 #' rates; default = TRUE 
 #'
 #' @export
-get_parameters <- function(overrides = list(),square_number) {
+get_parameters <- function(overrides = list(),square_number=square_number) {
   
   supp_filename_gamb<-paste("Seas and supp species specific/With funestus suppression/mosq_suppression_costly_gamb",square_number,".csv",sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))

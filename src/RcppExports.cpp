@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // create_adult_mosquito_model
 Rcpp::XPtr<AdultMosquitoModel> create_adult_mosquito_model(Rcpp::XPtr<AquaticMosquitoModel> growth_model, double mu, double tau, std::vector<double> mosq_suppression, std::vector<double> mosq_seasonality, bool use_Ace_mosq, double susceptible, double foim);
 RcppExport SEXP _malariasimulation_create_adult_mosquito_model(SEXP growth_modelSEXP, SEXP muSEXP, SEXP tauSEXP, SEXP mosq_suppressionSEXP, SEXP mosq_seasonalitySEXP, SEXP use_Ace_mosqSEXP, SEXP susceptibleSEXP, SEXP foimSEXP) {
