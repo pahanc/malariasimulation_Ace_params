@@ -248,14 +248,14 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_arab)<-NULL
   mosq_suppression_arab<-as.vector(mosq_suppression_arab)
   #No Drive:
-  #mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+  mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
 
   supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_fun",square_number,"_",run_number,".csv",sep="")
   mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
   dimnames(mosq_suppression_fun)<-NULL
   mosq_suppression_fun<-as.vector(mosq_suppression_fun)
   #No Drive:
-  #mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+  mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
 
   mosq_supp_lst<-list()
   mosq_supp_lst[[1]]<-mosq_suppression_gamb
