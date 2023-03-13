@@ -237,7 +237,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   
   supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_gamb",square_number,"_",run_number,".csv",sep="")
   mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
-  mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
+  #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
   dimnames(mosq_suppression_gamb)<-NULL
   mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
   ##No Drive:
