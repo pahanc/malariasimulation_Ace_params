@@ -235,33 +235,33 @@
 #' @export
 get_parameters <- function(overrides = list(),square_number=square_number,run_number=run_number) {
   
-  #supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_gamb",square_number,"_",run_number,".csv",sep="")
-  #mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
-  #mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
-  #dimnames(mosq_suppression_gamb)<-NULL
-  #mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
+  supp_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_gamb",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_gamb<-unlist(read.csv(supp_filename_gamb,header=F,colClasses="numeric"))
+  mosq_suppression<-unlist(read.csv("/Imperial March 2021/SEA project/mosq_suppression.csv",header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_gamb)<-NULL
+  mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
   ##No Drive:
   #mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
   
-  mosq_suppression_gamb<-rep(1,(29*365))
+  ###mosq_suppression_gamb<-rep(1,(29*365))
 
-  # supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_arab",square_number,"_",run_number,".csv",sep="")
-  # mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
-  # dimnames(mosq_suppression_arab)<-NULL
-  # mosq_suppression_arab<-as.vector(mosq_suppression_arab)
+  supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_arab",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_arab)<-NULL
+  mosq_suppression_arab<-as.vector(mosq_suppression_arab)
   # #No Drive:
-  # mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+   mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
 
-  mosq_suppression_arab<-rep(1,(29*365))
+  ###mosq_suppression_arab<-rep(1,(29*365))
   
-  # supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_fun",square_number,"_",run_number,".csv",sep="")
-  # mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
-  # dimnames(mosq_suppression_fun)<-NULL
-  # mosq_suppression_fun<-as.vector(mosq_suppression_fun)
+  supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Feb 23 stoch/mosq_supp_het_stronger_fun",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_fun<-unlist(read.csv(supp_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_fun)<-NULL
+  mosq_suppression_fun<-as.vector(mosq_suppression_fun)
   # #No Drive:
-  # mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+   mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
 
-  mosq_suppression_fun<-rep(1,(29*365))
+  ###mosq_suppression_fun<-rep(1,(29*365))
   
   mosq_supp_lst<-list()
   mosq_supp_lst[[1]]<-mosq_suppression_gamb
