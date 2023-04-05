@@ -241,7 +241,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_gamb)<-NULL
   mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
   ##No Drive:
-  #mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+  mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
   
   ###mosq_suppression_gamb<-rep(1,(29*365))
 
@@ -250,7 +250,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_arab)<-NULL
   mosq_suppression_arab<-as.vector(mosq_suppression_arab)
   # #No Drive:
-  #mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+  mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
 
   ###mosq_suppression_arab<-rep(1,(29*365))
   
@@ -259,7 +259,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_fun)<-NULL
   mosq_suppression_fun<-as.vector(mosq_suppression_fun)
   # #No Drive:
-  #mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+  mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
 
   ###mosq_suppression_fun<-rep(1,(29*365))
   
