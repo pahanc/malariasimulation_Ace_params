@@ -241,7 +241,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_gamb)<-NULL
   mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
   ##No Drive:
-  mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+  #mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
   
   ###mosq_suppression_gamb<-rep(1,(29*365))
 
