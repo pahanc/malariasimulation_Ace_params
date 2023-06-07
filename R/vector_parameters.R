@@ -67,6 +67,30 @@ fun_params <- list(
   mum = .112
 )
 
+#' @title Preset parameters for the New vector
+#' @details Default parameters:
+#' species: "new"
+#' blood_meal_rates: 0.3333333
+#' foraging_time: .69
+#' Q0: 0.71
+#' phi_bednets: 0.8
+#' phi_indoors: 0.86
+#' mum: 0.132
+#'
+#' parameters from:
+#' https://www.pnas.org/content/pnas/early/2019/07/02/1820646116.full.pdf
+#' @export
+new_params <- list(
+  species = 'new',
+  blood_meal_rates = 1/3,
+  foraging_time = .69,
+  Q0 = .71,
+  phi_bednets = .8,
+  phi_indoors = .86,
+  mum = .132
+)
+
+
 #' @title Parameterise the mosquito species to use in the model
 #'
 #' @param parameters the model parameters

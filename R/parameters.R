@@ -257,11 +257,20 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   mosq_suppression_fun<-as.vector(mosq_suppression_fun)
   # #No Drive:
   #mosq_suppression_fun<-rep(1,length(mosq_suppression_fun))
+  
+  supp_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_arab",square_number,"_",run_number,".csv",sep="")
+  mosq_suppression_new<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
+  dimnames(mosq_suppression_new)<-NULL
+  mosq_suppression_new<-as.vector(mosq_suppression_new)
+  # #No Drive:
+  mosq_suppression_new<-rep(1,length(mosq_suppression_new))
 
   mosq_supp_lst<-list()
   mosq_supp_lst[[1]]<-mosq_suppression_gamb
   mosq_supp_lst[[2]]<-mosq_suppression_arab
   mosq_supp_lst[[3]]<-mosq_suppression_fun
+  mosq_supp_lst[[4]]<-mosq_suppression_new
+  
 
   seas_filename_gamb<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_gamb",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_gamb<-unlist(read.csv(seas_filename_gamb,header=F,colClasses="numeric"))
@@ -277,12 +286,17 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_fun)<-NULL
   mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
-
+  
+  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
+  mosq_seasonality_new<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
+  dimnames(mosq_seasonality_new)<-NULL
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_new)
 
   mosq_seas_lst<-list()
   mosq_seas_lst[[1]]<-mosq_seasonality_gamb
   mosq_seas_lst[[2]]<-mosq_seasonality_arab
   mosq_seas_lst[[3]]<-mosq_seasonality_fun
+  mosq_seas_lst[[4]]<-mosq_seasonality_new
 
 
   parameters <- list(
