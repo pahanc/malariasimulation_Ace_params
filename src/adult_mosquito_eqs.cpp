@@ -46,7 +46,7 @@ integration_function_t create_eqs(AdultMosquitoModel& model) {
 
 	if (model.use_Ace_mosq){
 		dxdt[get_idx(AdultState::S)] =
-            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(AquaticState::P)] 
+            .5 * model.mosq_suppression[t_day] * model.mosq_seasonality[t_day] * x[get_idx(AquaticState::P)]/ model.growth_model.dp //growth to adult female
             - x[get_idx(AdultState::S)] * model.foim //infections
             - x[get_idx(AdultState::S)] * model.mu; //deaths   
 
