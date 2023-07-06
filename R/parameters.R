@@ -287,10 +287,10 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_seasonality_fun)<-NULL
   mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
   
-  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
+  seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_new<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
   dimnames(mosq_seasonality_new)<-NULL
-  mosq_seasonality_fun<-as.vector(mosq_seasonality_new)
+  mosq_seasonality_new<-as.vector(mosq_seasonality_new)
 
   mosq_seas_lst<-list()
   mosq_seas_lst[[1]]<-mosq_seasonality_gamb
