@@ -248,7 +248,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_arab)<-NULL
   mosq_suppression_arab<-as.vector(mosq_suppression_arab)
   # #No Drive:
-  mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
+  #mosq_suppression_arab<-rep(1,length(mosq_suppression_arab))
 
 
   supp_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/May 23 stoch/mosq_supp_het_stronger_fun_PBO",square_number,"_",run_number,".csv",sep="")
