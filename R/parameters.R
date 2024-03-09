@@ -285,7 +285,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   #seas_filename_fun<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/mosq_seasonality_fun",square_number,"_",run_number,".csv",sep = "")
   #mosq_seasonality_fun<-unlist(read.csv(seas_filename_fun,header=F,colClasses="numeric"))
   #dimnames(mosq_seasonality_fun)<-NULL
-  #mosq_seasonality_fun<-as.vector(mosq_seasonality_fun)
+  mosq_seasonality_fun<-as.vector(mosq_seasonality_gamb)#NO FUNESTUS IN SOUROU
   
   seas_filename_new<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Emerge/mosq_seasonality_arab",square_number,"_",run_number,".csv",sep = "")
   mosq_seasonality_new<-unlist(read.csv(seas_filename_new,header=F,colClasses="numeric"))
