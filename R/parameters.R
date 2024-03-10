@@ -241,7 +241,7 @@ get_parameters <- function(overrides = list(),square_number=square_number,run_nu
   dimnames(mosq_suppression_gamb)<-NULL
   mosq_suppression_gamb<-as.vector(mosq_suppression_gamb)
   ##No Drive:
-  mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
+  #mosq_suppression_gamb<-rep(1,length(mosq_suppression_gamb))
 
   supp_filename_arab<-paste("Q:\\for_hpc\\Seas and supp species specific/With funestus suppression/Mar 24 Sourou/Mar 24 Sourou Suppress/mosq_supp_arab",square_number,"_",run_number,".csv",sep="")
   mosq_suppression_arab<-unlist(read.csv(supp_filename_arab,header=F,colClasses="numeric"))
